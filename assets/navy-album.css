@@ -22,3 +22,58 @@
      */
     background-color: #aaa;
 }
+
+/*
+  详情页的信息文字可选中、可复制。
+
+  纯新增：上面 `* { user-select: none }` 保持原样，这里靠更高的选择器优先级做加法，
+  所以列表项、tab、按钮的默认行为一个字都没改。
+
+  范围依据：
+    .ship-viewer   → ui/ships-album/ship-viewer/index.es:144
+    .equip-viewer  → ui/equipments-album/equip-viewer/index.es:49
+  两者都是整块详情容器，属性表、消耗表、简介、台词、改造信息都在里面。
+ */
+.navy-album-main .ship-viewer,
+.navy-album-main .ship-viewer *,
+.navy-album-main .equip-viewer,
+.navy-album-main .equip-viewer *,
+.navy-album-main h1,
+.navy-album-main h2,
+.navy-album-main h3,
+.navy-album-main h4,
+.navy-album-main h5,
+.navy-album-main h6 {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+/*
+  把详情页里的交互控件收回来，避免按住拖动时误选文字。
+
+  [style*="pointer"] 是代码里给「可点击的非按钮元素」统一加的标记：
+    equipments-view.es:128  装备槽 Card（点它跳装备详情）
+    remodel-info-view/info-row.es:36  改造信息里的舰名（点它换船）
+  这些没有 button 标签，只能靠这个 inline 样式精确圈出来。
+ */
+.navy-album-main .ship-viewer button,
+.navy-album-main .ship-viewer a,
+.navy-album-main .ship-viewer img,
+.navy-album-main .ship-viewer input,
+.navy-album-main .ship-viewer textarea,
+.navy-album-main .ship-viewer select,
+.navy-album-main .ship-viewer [role="tab"],
+.navy-album-main .ship-viewer .rc-slider,
+.navy-album-main .ship-viewer [style*="pointer"],
+.navy-album-main .equip-viewer button,
+.navy-album-main .equip-viewer a,
+.navy-album-main .equip-viewer img,
+.navy-album-main .equip-viewer input,
+.navy-album-main .equip-viewer textarea,
+.navy-album-main .equip-viewer select,
+.navy-album-main .equip-viewer [role="tab"],
+.navy-album-main .equip-viewer .rc-slider,
+.navy-album-main .equip-viewer [style*="pointer"] {
+    user-select: none;
+    -webkit-user-select: none;
+}
