@@ -6,7 +6,7 @@ import { join } from 'path-extra'
 
 import { uiSelector, gameUpdateSelector, debuffInfoSelector } from '../selectors'
 
-const latestDataVersion = 'p-state-1.2.0'
+const latestDataVersion = 'p-state-1.3.0'
 
 /*
    state persistence: the following paths are kept and restored at runtime:
@@ -99,6 +99,18 @@ const updatePState = oldPState => {
       modifyObject('digest', () => null)
     )(newPState)
     newPState.$dataVersion = 'p-state-1.2.0'
+  }
+
+  if (newPState.$dataVersion === 'p-state-1.2.0') {
+    /*
+       name simplification is on by default from now on.
+       1.2.0 states only ever carry the old `false` default (the feature did not
+       exist when that version was introduced), so flip it once here -- after
+       this migration the flag is purely the user's own choice again.
+     */
+    newPState = _.cloneDeep(newPState)
+    _.set(newPState, 'ui.simplifyNames', true)
+    newPState.$dataVersion = 'p-state-1.3.0'
   }
 
   if (newPState.$dataVersion === latestDataVersion) {

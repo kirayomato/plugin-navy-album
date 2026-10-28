@@ -1,10 +1,13 @@
+import { ACTION_PREFIX } from '../../plugin-meta'
+
 const initState = {
   ready: false,
   // activeTab: ships / equipments / game-update
   activeTab: 'ships',
   // when true, names (ship / equip / types) are shown with
   // traditional characters converted to simplified ones
-  simplifyNames: false,
+  // (on by default; p-state-1.3.0 flips the old `false` default once)
+  simplifyNames: true,
   // state for ShipsAlbum
   shipsAlbum: {
     // controls how the ship list appears
@@ -68,7 +71,7 @@ const initState = {
 }
 
 const reducer = (state = initState, action) => {
-  if (action.type === '@poi-plugin-navy-album@ui@Ready') {
+  if (action.type === `${ACTION_PREFIX}@ui@Ready`) {
     const {newState} = action
     return {
       ...state,
@@ -80,7 +83,7 @@ const reducer = (state = initState, action) => {
   if (!state.ready)
     return state
 
-  if (action.type === '@poi-plugin-navy-album@ui@Modify') {
+  if (action.type === `${ACTION_PREFIX}@ui@Modify`) {
     const {modifier} = action
     return modifier(state)
   }

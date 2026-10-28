@@ -4,7 +4,7 @@ import { Button, Tooltip, Position } from '@blueprintjs/core'
 import { createSelector } from 'reselect'
 import { modifyObject, not } from 'subtender'
 
-import { uiSelector } from '../../selectors'
+import { simplifyNamesSelector } from '../../selectors'
 import { mapDispatchToProps } from '../../store'
 import { PTyp } from '../../ptyp'
 import { getI18n } from './i18n'
@@ -15,8 +15,8 @@ import { getI18n } from './i18n'
  */
 @connect(
   createSelector(
-    uiSelector,
-    ui => ({enabled: Boolean(ui && ui.simplifyNames)})
+    simplifyNamesSelector,
+    enabled => ({enabled})
   ),
   mapDispatchToProps,
 )

@@ -17,6 +17,8 @@
    INVARIANT: when ready === true, digest must be non-null
 
  */
+import { ACTION_PREFIX } from '../../plugin-meta'
+
 const initState = {
   summary: null,
   digest: null,
@@ -24,7 +26,7 @@ const initState = {
 }
 
 const reducer = (state = initState, action) => {
-  if (action.type === '@poi-plugin-navy-album@gameUpdate@Ready') {
+  if (action.type === `${ACTION_PREFIX}@gameUpdate@Ready`) {
     const {newState} = action
     return {
       ...state,
@@ -36,7 +38,7 @@ const reducer = (state = initState, action) => {
   if (!state.ready)
     return state
 
-  if (action.type === '@poi-plugin-navy-album@gameUpdate@Modify') {
+  if (action.type === `${ACTION_PREFIX}@gameUpdate@Modify`) {
     const {modifier} = action
     return modifier(state)
   }

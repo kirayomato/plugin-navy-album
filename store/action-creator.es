@@ -6,14 +6,15 @@ import { actionCreators as masterAC } from './ext-root/master'
 import { mkTouchDebuffGraph } from './touch-debuff-graph'
 import { isAbyssalShipMstId } from '../game-misc'
 import { NavyAlbum } from '../devtools'
+import { ACTION_PREFIX, PACKAGE_NAME } from '../plugin-meta'
 
 const actionCreator = {
   uiReady: newState => ({
-    type: '@poi-plugin-navy-album@ui@Ready',
+    type: `${ACTION_PREFIX}@ui@Ready`,
     newState,
   }),
   uiModify: modifier => ({
-    type: '@poi-plugin-navy-album@ui@Modify',
+    type: `${ACTION_PREFIX}@ui@Modify`,
     modifier,
   }),
   uiSwitchShip: mstId =>
@@ -65,15 +66,15 @@ const actionCreator = {
       ])
     ),
   subtitleModify: modifier => ({
-    type: '@poi-plugin-navy-album@subtitle@Modify',
+    type: `${ACTION_PREFIX}@subtitle@Modify`,
     modifier,
   }),
   gameUpdateReady: newState => ({
-    type: '@poi-plugin-navy-album@gameUpdate@Ready',
+    type: `${ACTION_PREFIX}@gameUpdate@Ready`,
     newState,
   }),
   gameUpdateModify: modifier => ({
-    type: '@poi-plugin-navy-album@gameUpdate@Modify',
+    type: `${ACTION_PREFIX}@gameUpdate@Modify`,
     modifier,
   }),
   gameUpdateNewDigest: digest =>
@@ -118,7 +119,7 @@ const actionCreator = {
       )
     ),
   debuffInfoModify: modifier => ({
-    type: '@poi-plugin-navy-album@debuffInfo@Modify',
+    type: `${ACTION_PREFIX}@debuffInfo@Modify`,
     modifier,
   }),
   ...masterAC,
@@ -158,7 +159,7 @@ NavyAlbum.populateDebuffInfo = () => {
   )
   const obtainedMstIds = new Set(
     _.keys(
-      _.get(getStore(), ['ext', 'poi-plugin-navy-album', '_', 'debuffInfo'])
+      _.get(getStore(), ['ext', PACKAGE_NAME, '_', 'debuffInfo'])
     ).map(Number)
   )
 

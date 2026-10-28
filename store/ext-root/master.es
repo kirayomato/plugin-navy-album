@@ -2,6 +2,7 @@
    this reducer keeps track of master data from api_start2
  */
 import _ from 'lodash'
+import { ACTION_PREFIX } from '../../plugin-meta'
 import { join } from 'path-extra'
 import {
   ensureDirSync,
@@ -20,7 +21,7 @@ const reducer = (state = null, action) => {
      note that we always prefer the latest data from API,
      this means if current state is non-empty, this action will do nothing.
    */
-  if (action.type === '@poi-plugin-navy-album@master@LoadFile') {
+  if (action.type === `${ACTION_PREFIX}@master@LoadFile`) {
     const {data} = action
     if (!_.isEmpty(state) || _.isEmpty(data))
       return state
@@ -33,7 +34,7 @@ const reducer = (state = null, action) => {
 
 const actionCreators = {
   masterLoadFile: data => ({
-    type: '@poi-plugin-navy-album@master@LoadFile',
+    type: `${ACTION_PREFIX}@master@LoadFile`,
     data,
   }),
 }

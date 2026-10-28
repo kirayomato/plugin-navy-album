@@ -1,9 +1,10 @@
 import { mkSimpleReducer } from './common'
+import { ACTION_PREFIX } from '../../plugin-meta'
 
 const initState = {}
 
 const reducer = mkSimpleReducer(
   initState,
-  '@poi-plugin-navy-album@subtitle@Modify')
+  `${ACTION_PREFIX}@subtitle@Modify`)
 
 export { reducer }

@@ -10,14 +10,29 @@ import {
 } from 'views/utils/selectors'
 import { toRomaji } from 'wanakana'
 import { initState } from '../store'
+import { PACKAGE_NAME } from '../plugin-meta'
 import {
   isAbyssalShipMstId,
   getShipImgPathHelper,
   toSimplified,
 } from '../game-misc'
 
+/*
+  这里的 key 必须和 package.json 的 `name` 一致（poi-plugin-navy-album-kai）。
+
+  poi 12 注册插件 reducer 时调用 extendReducer(plugin.packageName, plugin.reducer)，
+  把状态挂到 state.ext[packageName] = {_: ...}；
+  而 extensionSelectorFactory(key) 读的是 state.ext[key]._。
+
+  之前这里写的是上游包名 poi-plugin-navy-album，于是 selector 永远取到
+  undefined ?? {} → 下面 isEmpty 判定成立 → 回落 initState：
+  界面照常渲染（initState 有完整默认值），但任何点击写进 ext 的另一个分区，
+  selector 都读不到 → 页面永远不动，且不报任何错。
+
+  现在改为从 package.json 自动读取，改名不会再漏。
+ */
 const extSelector = createSelector(
-  extensionSelectorFactory('poi-plugin-navy-album'),
+  extensionSelectorFactory(PACKAGE_NAME),
   ext => _.isEmpty(ext) ? initState : ext)
 
 const mkExtPropSelector = _.memoize(propName =>
@@ -35,6 +50,17 @@ const debuffInfoSelector =
   mkExtPropSelector('debuffInfo')
 
 /*
+   Whether traditional characters should be converted to simplified ones.
+
+   Defaults to true (same default as `initState`), so this is the single
+   place that decides what "unset" means.
+ */
+const simplifyNamesSelector = createSelector(
+  uiSelector,
+  ui => Boolean(_.get(ui, 'simplifyNames', true))
+)
+
+/*
    Returns the function to be applied to names before displaying them:
 
    - toSimplified when the user asked for traditional characters to be
@@ -42,8 +68,8 @@ const debuffInfoSelector =
      components can apply it unconditionally).
  */
 const nameSimplifierSelector = createSelector(
-  uiSelector,
-  ui => _.get(ui, 'simplifyNames', false) ? toSimplified : _.identity
+  simplifyNamesSelector,
+  enabled => enabled ? toSimplified : _.identity
 )
 
 const indexedShipGraphsSelector = createSelector(
@@ -202,6 +228,7 @@ const getShipImgSrcFuncSelector = createSelector(
 export {
   extSelector,
   uiSelector,
+  simplifyNamesSelector,
   nameSimplifierSelector,
   shipGraphInfoSelector,
   shipsInfoSelector,

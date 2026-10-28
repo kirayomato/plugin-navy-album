@@ -5,6 +5,7 @@
   "main": "index.es",
   "files": [
     "index.es",
+    "plugin-meta.es",
     "ipc.es",
     "ptyp.es",
     "devtools.es",

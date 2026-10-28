@@ -11,9 +11,11 @@
   所以这里优先用本项目自己的命名空间，上游命名空间只作兜底（万一将来改名，
   老文案至少还能显示出来）。
  */
+import { PACKAGE_NAME, UPSTREAM_PACKAGE_NAME } from '../../plugin-meta'
+
 const NAMESPACES = [
-  'poi-plugin-navy-album-kai',
-  'poi-plugin-navy-album',
+  PACKAGE_NAME,
+  UPSTREAM_PACKAGE_NAME,
 ]
 
 const build = () => {

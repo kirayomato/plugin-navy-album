@@ -2,6 +2,8 @@
 
 这是 fork 新增的功能：把舰船名、装备名里的繁体字和日文新字体转成简体。
 开关在舰船/装备列表的搜索框右侧（`繁→简`），状态存进 `p-state.json` 的 `ui.simplifyNames`。
+**默认开启**（`initState` 与 `simplifyNamesSelector` 都按 `true` 处理；老存档里那批
+`false` 由 `p-state-1.3.0` 迁移一次性翻成 `true`，之后完全听用户的）。
 
 本文先解释转换链路，然后重点讲**补字表怎么手动维护**。
 
@@ -11,7 +13,7 @@
 | --- | --- |
 | `game-misc/t2s.es` | 转换本体：`toSimplified` / `simplifyIf`，**补字表就在这里** |
 | `ui/common/name-simplifier-toggle.es` | 开关按钮 |
-| `selectors/common.es` | `nameSimplifierSelector`：开关打开时返回 `toSimplified`，否则返回恒等函数 |
+| `selectors/common.es` | `simplifyNamesSelector`（开关状态，缺省 `true`）；`nameSimplifierSelector`：开关打开时返回 `toSimplified`，否则返回恒等函数 |
 | `test/game-misc/t2s.js` | 单元测试，改完补字表要在这里加断言 |
 
 各显示点的接入（列表名、类型名、详情头部、改造链、装备栏、更新页、搜索匹配）都在 selector 层完成，
