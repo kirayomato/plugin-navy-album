@@ -10,6 +10,8 @@
   "GameUpdate": "遊戲更新",
 
   "Search": "搜索…",
+  "SimplifyNames": "繁→簡",
+  "SimplifyNamesTip": "將名稱中的繁體字轉換為簡體字顯示",
 
   "ShowOpts": "顯示選項",
   "HideOpts": "隱藏選項",

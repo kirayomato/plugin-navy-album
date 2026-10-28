@@ -13,17 +13,18 @@ import {
 import {
   remodelInfoSelector,
   remodelDetailsSelector,
+  nameSimplifierSelector,
 } from '../../../../selectors'
 
 import { PTyp } from '../../../../ptyp'
 import { mapDispatchToProps } from '../../../../store'
 import { InfoRow } from './info-row'
 
-const prepareMstIdToDesc = ($ships, $shipTypes) => mstId => {
+const prepareMstIdToDesc = ($ships, $shipTypes, simplify) => mstId => {
   const $ship = $ships[mstId]
   return {
-    shipName: $ship.api_name,
-    typeName: $shipTypes[$ship.api_stype].api_name,
+    shipName: simplify($ship.api_name),
+    typeName: simplify($shipTypes[$ship.api_stype].api_name),
   }
 }
 
@@ -32,6 +33,7 @@ const prepareMstIdToDesc = ($ships, $shipTypes) => mstId => {
     createStructuredSelector({
       remodelDetails: remodelDetailsSelector,
       remodelInfo: remodelInfoSelector,
+      simplify: nameSimplifierSelector,
     }),
     createSelector(
       constSelector,
@@ -46,6 +48,7 @@ class RemodelInfoView extends PureComponent {
     mstId: PTyp.number.isRequired,
     remodelDetails: PTyp.object.isRequired,
     remodelInfo: PTyp.object.isRequired,
+    simplify: PTyp.func.isRequired,
     $ships: PTyp.object.isRequired,
     $shipTypes: PTyp.object.isRequired,
   }
@@ -55,7 +58,7 @@ class RemodelInfoView extends PureComponent {
       style,
       mstId,
       remodelInfo, remodelDetails,
-      $ships, $shipTypes,
+      $ships, $shipTypes, simplify,
     } = this.props
     const noRender = (<div style={{display: 'none'}} />)
     const {originMstIdOf, remodelChains} = remodelInfo
@@ -73,7 +76,7 @@ class RemodelInfoView extends PureComponent {
       })
     if (currentRemodelDetails.length === 0)
       return noRender
-    const mstIdToDesc = prepareMstIdToDesc($ships, $shipTypes)
+    const mstIdToDesc = prepareMstIdToDesc($ships, $shipTypes, simplify)
     const {__} = window.i18n["poi-plugin-navy-album"]
     return (
       <>

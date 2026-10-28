@@ -2,6 +2,9 @@ const initState = {
   ready: false,
   // activeTab: ships / equipments / game-update
   activeTab: 'ships',
+  // when true, names (ship / equip / types) are shown with
+  // traditional characters converted to simplified ones
+  simplifyNames: false,
   // state for ShipsAlbum
   shipsAlbum: {
     // controls how the ship list appears

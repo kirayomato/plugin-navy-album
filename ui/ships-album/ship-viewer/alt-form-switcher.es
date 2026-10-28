@@ -13,7 +13,7 @@ import {
   debuffFlagSelector,
   hasDebuffedGraphsSelector,
 } from '../selectors'
-import { remodelInfoSelector } from '../../../selectors'
+import { remodelInfoSelector, nameSimplifierSelector } from '../../../selectors'
 import { isAbyssalShipMstId } from '../../../game-misc'
 import { PTyp } from '../../../ptyp'
 import { mapDispatchToProps } from '../../../store'
@@ -24,6 +24,7 @@ import { mapDispatchToProps } from '../../../store'
     debuffFlag: debuffFlagSelector,
     hasDebuffedGraphs: hasDebuffedGraphsSelector,
     remodelInfo: remodelInfoSelector,
+    simplify: nameSimplifierSelector,
     $ships: createSelector(
       constSelector,
       ({$ships}) => $ships
@@ -36,6 +37,7 @@ class AltFormSwitcher extends PureComponent {
     mstId: PTyp.number.isRequired,
     remodelInfo: PTyp.object.isRequired,
     $ships: PTyp.object.isRequired,
+    simplify: PTyp.func.isRequired,
     hasDebuffedGraphs: PTyp.bool.isRequired,
     debuffFlag: PTyp.bool.isRequired,
     uiSwitchShip: PTyp.func.isRequired,
@@ -80,10 +82,10 @@ class AltFormSwitcher extends PureComponent {
     const {__} = window.i18n["poi-plugin-navy-album"]
     const noRender = (<div style={{display: 'none'}} />)
     if (isAbyssalShipMstId(mstId)) {
-      const {hasDebuffedGraphs, debuffFlag, $ships} = this.props
+      const {hasDebuffedGraphs, debuffFlag, $ships, simplify} = this.props
       if (!hasDebuffedGraphs)
         return noRender
-      const abyssalName = $ships[mstId].api_name
+      const abyssalName = simplify($ships[mstId].api_name)
       return (
         <div style={{
           width: '100%',
@@ -112,7 +114,7 @@ class AltFormSwitcher extends PureComponent {
       )
     }
 
-    const {remodelInfo, $ships} = this.props
+    const {remodelInfo, $ships, simplify} = this.props
     const {remodelChains, originMstIdOf} = remodelInfo
     const originMstId = originMstIdOf[mstId]
     if (!originMstId)
@@ -141,7 +143,7 @@ class AltFormSwitcher extends PureComponent {
                 fontSize: '1em',
                 ...(ind === 0 ? {} : {marginLeft: '.4em'}),
               }}>
-              {$ships[curMstId].api_name}
+              {simplify($ships[curMstId].api_name)}
             </Tag>
           ))
         }

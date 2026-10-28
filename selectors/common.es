@@ -13,6 +13,7 @@ import { initState } from '../store'
 import {
   isAbyssalShipMstId,
   getShipImgPathHelper,
+  toSimplified,
 } from '../game-misc'
 
 const extSelector = createSelector(
@@ -32,6 +33,18 @@ const masterSelector =
   mkExtPropSelector('master')
 const debuffInfoSelector =
   mkExtPropSelector('debuffInfo')
+
+/*
+   Returns the function to be applied to names before displaying them:
+
+   - toSimplified when the user asked for traditional characters to be
+     converted (the identity function is returned otherwise, so that
+     components can apply it unconditionally).
+ */
+const nameSimplifierSelector = createSelector(
+  uiSelector,
+  ui => _.get(ui, 'simplifyNames', false) ? toSimplified : _.identity
+)
 
 const indexedShipGraphsSelector = createSelector(
   constSelector,
@@ -189,6 +202,7 @@ const getShipImgSrcFuncSelector = createSelector(
 export {
   extSelector,
   uiSelector,
+  nameSimplifierSelector,
   shipGraphInfoSelector,
   shipsInfoSelector,
   indexedShipGraphsSelector,

@@ -11,6 +11,7 @@ import { Card } from '@blueprintjs/core'
 import { SlotitemIcon } from 'views/components/etc/icon'
 import { constSelector } from 'views/utils/selectors'
 import { PTyp } from '../../../ptyp'
+import { nameSimplifierSelector } from '../../../selectors'
 import { mapDispatchToProps } from '../../../store'
 
 const EqpIcon = styled(SlotitemIcon)`
@@ -28,6 +29,7 @@ const EqpIcon = styled(SlotitemIcon)`
     $equips: createSelector(
       constSelector,
       ({$equips}) => $equips),
+    simplify: nameSimplifierSelector,
   }),
   mapDispatchToProps
 )
@@ -36,12 +38,14 @@ class EquipmentsView extends PureComponent {
     slotCount: PTyp.number.isRequired,
     equips: PTyp.array.isRequired,
     $equips: PTyp.object.isRequired,
+    simplify: PTyp.func.isRequired,
     style: PTyp.object.isRequired,
     uiSwitchEquip: PTyp.func.isRequired,
   }
 
   render() {
-    const {slotCount, equips, $equips, style, uiSwitchEquip} = this.props
+    const {slotCount, equips, $equips, simplify, style, uiSwitchEquip} =
+      this.props
     if (equips.length > 5) {
       console.warn(`equips Array is longer than expected`, equips)
     }
@@ -79,7 +83,7 @@ class EquipmentsView extends PureComponent {
                 const iconId = $equip.api_type[3]
                 onClick = () => uiSwitchEquip(mstId)
                 displayIcon = (<EqpIcon slotitemId={iconId} />)
-                displayName = $equip.api_name
+                displayName = simplify($equip.api_name)
 
                 // number & greater than 0
                 if (star) {

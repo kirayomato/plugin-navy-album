@@ -1,16 +1,31 @@
 {
   "name": "poi-plugin-navy-album",
-  "version": "1.7.21",
+  "version": "1.8.0",
   "description": "Show illustration album of ships and items.",
   "main": "index.es",
+  "files": [
+    "index.es",
+    "ipc.es",
+    "ptyp.es",
+    "devtools.es",
+    "assets/",
+    "game-misc/",
+    "observers/",
+    "p-state/",
+    "selectors/",
+    "store/",
+    "ui/"
+  ],
   "scripts": {
     "test": "mocha -r @babel/register --recursive",
     "lint": "eslint '**/*.es' || true",
-    "update-kcreplay": "node scripts/update-kcreplay-db.js"
+    "update-kcreplay": "node scripts/update-kcreplay-db.js",
+    "pack:check": "npm pack --dry-run",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/poooi/plugin-navy-album.git"
+    "url": "git+https://github.com/kirayomato/plugin-navy-album.git"
   },
   "author": {
     "name": "Javran",
@@ -24,9 +39,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/poooi/plugin-navy-album/issues"
+    "url": "https://github.com/kirayomato/plugin-navy-album/issues"
   },
-  "homepage": "https://github.com/poooi/plugin-navy-album",
+  "homepage": "https://github.com/kirayomato/plugin-navy-album",
   "poiPlugin": {
     "title": "Package.Name",
     "description": "Package.Desc",
@@ -39,7 +54,8 @@
     }
   },
   "keywords": [
-    "kancolle"
+    "kancolle",
+    "poi-plugin"
   ],
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.44",
@@ -60,6 +76,7 @@
     "request-promise-native": "^1.0.5"
   },
   "dependencies": {
+    "opencc-js": "^1.4.2",
     "shallowequal": "^1.0.2",
     "subtender": "^0.15.1"
   }

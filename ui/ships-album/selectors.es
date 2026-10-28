@@ -13,10 +13,12 @@ import {
   indexedShipGraphsSelector,
   shipsMasterDataSelector,
   debuffInfoSelector,
+  nameSimplifierSelector,
   compareShipNaturalOrder,
 } from '../../selectors'
 import {
   isAbyssalShipMstId,
+  toSimplified,
 } from '../../game-misc'
 
 const shipsAlbumSelector = createSelector(
@@ -62,6 +64,9 @@ const filteredShipsInfoSelector = createSelector(
 
     return shipsInfo.filter(si =>
       matchFound(si.name) ||
+      // searching with simplified characters finds traditional names
+      // (and vice versa), regardless of how names are displayed
+      matchFound(toSimplified(si.name)) ||
       matchFound(si.yomi) ||
       matchFound(si.romaji) ||
       matchFound(si.mstId)
@@ -121,11 +126,13 @@ const shipsInfoStage3Selector = createSelector(
   listOptionsSelector,
   constSelector,
   sortByRemodelFuncSelector,
+  nameSimplifierSelector,
   (
     shipsInfoObjOrArr,
     {groupRemodels},
     {$shipTypes},
     sortByRemodelFunc,
+    simplify,
   ) => {
     // in-place sort should be fine, nothing except this
     // selector would take stage2 results.
@@ -147,7 +154,7 @@ const shipsInfoStage3Selector = createSelector(
     if (Array.isArray(shipsInfoObjOrArr)) {
       groupped = false
       wrappedShipsInfo = sortArray(shipsInfoObjOrArr).map(s =>
-        ({type: 'ship', info: s}))
+        ({type: 'ship', info: {...s, name: simplify(s.name)}}))
     } else {
       groupped = true
       // Array of [ stype(number), sorted ShipInfo ]
@@ -169,13 +176,13 @@ const shipsInfoStage3Selector = createSelector(
           sortedShipsInfoGroups, ([stype, stypeShipsInfo]) => {
             const stypeItem = {
               type: 'stype',
-              typeName: $shipTypes[stype].api_name,
+              typeName: simplify($shipTypes[stype].api_name),
               stype,
             }
             return [
               stypeItem,
               ...stypeShipsInfo.map(s =>
-                ({type: 'ship', info: s})),
+                ({type: 'ship', info: {...s, name: simplify(s.name)}})),
             ]
           })
     }

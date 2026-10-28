@@ -10,6 +10,7 @@ import {
 } from './selectors'
 import { PTyp } from '../../ptyp'
 import { Highlightable } from '../common/highlightable'
+import { NameSimplifierToggle } from '../common/name-simplifier-toggle'
 import { mapDispatchToProps } from '../../store'
 import { SearchBar } from '../search-bar'
 
@@ -64,11 +65,19 @@ class ShipPicker extends Component {
           flex: 1,
           height: 0,
         }}>
-        <SearchBar
-          style={{marginBottom: 8}}
-          value={searchText}
-          changeValue={this.handleChangeSearchText}
-        />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            marginBottom: 8,
+          }}>
+          <SearchBar
+            style={{flex: 1}}
+            value={searchText}
+            changeValue={this.handleChangeSearchText}
+          />
+          <NameSimplifierToggle style={{marginLeft: 4}} />
+        </div>
         <div
           style={{
             flex: 1,

@@ -1,26 +1,22 @@
 {
   "Package": {
-    "Name": "海色相簿",
+    "Name": "海色相簿改",
     "Desc": "舰娘与装备资料库"
   },
-
   "Ships": "舰船",
   "Equipments": "装备",
   "Music": "音乐",
   "GameUpdate": "游戏更新",
-
   "Search": "搜索…",
-
+  "SimplifyNames": "繁→简",
+  "SimplifyNamesTip": "将名称中的繁体字转换为简体字显示",
   "ShowOpts": "显示选项",
   "HideOpts": "隐藏选项",
-
   "Friendly": "己方",
   "Abyssal": "深海",
-
   "ShipsTab": {
     "GroupByShipTypes": "按舰种分组",
     "GroupRemodels": "集合同舰改造",
-
     "WaitingDataFor": "等待#%s数据",
     "Debuff": "(削弱)",
     "Info": "信息",
@@ -29,22 +25,18 @@
     "Modernization": "近代化改造",
     "DockingTime": "入渠时长",
     "Remodels": "相关改造",
-
     "Gallery": "画廊",
     "LastUpdate": "最后更新",
-
     "Voice": "语音",
     "ShowWedding": "显示结婚语音",
     "ShowSunk": "显示击沉语音"
   },
-
   "EquipmentsTab": {
     "GroupByTypes": "按类型分组",
     "ScrapValue": "废弃资源",
     "Distance": "航程",
     "Cost": "消耗"
   },
-
   "MusicLibraryTab": {
     "PortBGM": "母港BGM",
     "MapBGM": "海域BGM",
@@ -58,7 +50,6 @@
       "bossNight": "Boss战 (夜)"
     }
   },
-
   "GameUpdateTab": {
     "NewShips": "新舰船",
     "NewEquipments": "新装备",

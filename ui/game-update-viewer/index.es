@@ -15,6 +15,7 @@ import { SlotitemIcon } from 'views/components/etc/icon'
 import {
   gameUpdateSelector,
   serverIpSelector,
+  nameSimplifierSelector,
 } from '../../selectors'
 import {
   reorganizedSummarySelector,
@@ -81,6 +82,7 @@ const EqpIcon = styled(SlotitemIcon)`
     createStructuredSelector({
       rSummary: reorganizedSummarySelector,
       serverIp: serverIpSelector,
+      simplify: nameSimplifierSelector,
       $equips: createSelector(
         constSelector,
         ({$equips}) => $equips
@@ -100,6 +102,7 @@ class GameUpdateViewer extends PureComponent {
     }).isRequired,
     serverIp: PTyp.string.isRequired,
     $equips: PTyp.object.isRequired,
+    simplify: PTyp.func.isRequired,
     uiSwitchShip: PTyp.func.isRequired,
     uiSwitchEquip: PTyp.func.isRequired,
   }
@@ -126,7 +129,10 @@ class GameUpdateViewer extends PureComponent {
   }
 
   renderNewEquipsPart = () => {
-    const {serverIp, rSummary: {addedEquipMstIds}, $equips, uiSwitchEquip} = this.props
+    const {
+      serverIp, rSummary: {addedEquipMstIds}, $equips, simplify,
+      uiSwitchEquip,
+    } = this.props
     const {friendly, abyssal} = addedEquipMstIds
     const length = _.sum(_.values(addedEquipMstIds).map(x => x.length))
     const equipMstIdToSrc = mstId =>
@@ -150,7 +156,7 @@ class GameUpdateViewer extends PureComponent {
               className="slotitem-img"
               slotitemId={iconId}
             />
-            <span>{$equip.api_name}</span>
+            <span>{simplify($equip.api_name)}</span>
           </div>
         </Button>
       )

@@ -10,6 +10,8 @@
   "GameUpdate": "Game Update",
 
   "Search": "Search ...",
+  "SimplifyNames": "T → S",
+  "SimplifyNamesTip": "Show names with traditional characters converted to simplified ones",
 
   "ShowOpts": "Show options",
   "HideOpts": "Hide options",

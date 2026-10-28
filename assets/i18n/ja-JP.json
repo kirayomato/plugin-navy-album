@@ -10,6 +10,8 @@
   "GameUpdate": "ゲームアップデート",
 
   "Search": "検索...",
+  "SimplifyNames": "繁→簡",
+  "SimplifyNamesTip": "名称の繁体字・旧字体を簡体字に変換して表示します",
 
   "ShowOpts": "オプションを表示",
   "HideOpts": "オプションを非表示",

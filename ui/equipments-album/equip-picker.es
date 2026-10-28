@@ -13,6 +13,7 @@ import {
 
 import { PTyp } from '../../ptyp'
 import { Highlightable } from '../common/highlightable'
+import { NameSimplifierToggle } from '../common/name-simplifier-toggle'
 import { mapDispatchToProps } from '../../store'
 import { SearchBar } from '../search-bar'
 
@@ -70,11 +71,19 @@ class EquipPicker extends Component {
           height: 0,
           flex: 1,
         }}>
-        <SearchBar
-          style={{marginBottom: 8}}
-          value={searchText}
-          changeValue={this.handleChangeSearchText}
-        />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            marginBottom: 8,
+          }}>
+          <SearchBar
+            style={{flex: 1}}
+            value={searchText}
+            changeValue={this.handleChangeSearchText}
+          />
+          <NameSimplifierToggle style={{marginLeft: 4}} />
+        </div>
         <div style={{
           flex: 1,
           overflowY: 'auto',

@@ -5,9 +5,11 @@ import { projectorToComparator } from 'subtender'
 
 import {
   uiSelector,
+  nameSimplifierSelector,
 } from '../../selectors'
 import {
   isAbyssalEquipMstId,
+  toSimplified,
 } from '../../game-misc'
 
 const equipmentsAlbumSelector = createSelector(
@@ -39,6 +41,9 @@ const filteredEquipsRawSelector = createSelector(
       allEquipsRaw :
       allEquipsRaw.filter(raw =>
         raw.api_name.indexOf(searchText) !== -1 ||
+        // searching with simplified characters finds traditional
+        // names (and vice versa), regardless of how names are displayed
+        toSimplified(raw.api_name).indexOf(searchText) !== -1 ||
         String(raw.api_id).indexOf(searchText) !== -1
       )
 )
@@ -82,14 +87,15 @@ const equipsRawStage2Selector = createSelector(
 const equipsRawSelectorForView = createSelector(
   equipsRawStage2Selector,
   constSelector,
-  (equipsRawObjOrArr, {$equipTypes}) => {
+  nameSimplifierSelector,
+  (equipsRawObjOrArr, {$equipTypes}, simplify) => {
     const sortArray =
       xs => xs.sort(projectorToComparator(x => x.api_id))
     const trRaw = raw => ({
       type: 'equip',
       mstId: raw.api_id,
       icon: raw.api_type[3],
-      name: raw.api_name,
+      name: simplify(raw.api_name),
     })
     let groupped
     let wrappedEquipsRaw
@@ -110,7 +116,7 @@ const equipsRawSelectorForView = createSelector(
           sortedEquipsRawGroups, ([eqType, etypeRaws]) => {
             const etypeItem = {
               type: 'etype',
-              typeName: $equipTypes[eqType].api_name,
+              typeName: simplify($equipTypes[eqType].api_name),
               etype: eqType,
             }
             return [
@@ -138,7 +144,8 @@ const mstIdSelector = createSelector(
 const equipRawInfoSelector = createSelector(
   mstIdSelector,
   constSelector,
-  (mstId, {$equips = {}, $equipTypes = {}}) => {
+  nameSimplifierSelector,
+  (mstId, {$equips = {}, $equipTypes = {}}, simplify) => {
     if (_.isEmpty($equips) || _.isEmpty($equipTypes))
       return {$equip: null, $equipType: null}
     const $equip = $equips[mstId]
@@ -149,7 +156,12 @@ const equipRawInfoSelector = createSelector(
     if (_.isEmpty($equipType))
       return {$equip: null, $equipType: null}
 
-    return {$equip, $equipType}
+    // names are converted here so that every child view showing them
+    // does not have to care about it.
+    return {
+      $equip: {...$equip, api_name: simplify($equip.api_name)},
+      $equipType: {...$equipType, api_name: simplify($equipType.api_name)},
+    }
   }
 )
 

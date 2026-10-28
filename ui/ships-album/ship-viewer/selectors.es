@@ -10,12 +10,14 @@ import {
 import {
   remodelInfoSelector,
   wctfShipsSelector,
+  nameSimplifierSelector,
 } from '../../../selectors'
 
 const headerInfoSelector = createSelector(
   mstIdSelector,
   constSelector,
-  (mstId,{$ships,$shipTypes}) => {
+  nameSimplifierSelector,
+  (mstId, {$ships,$shipTypes}, simplify) => {
     const $ship = $ships[mstId]
     if (_.isEmpty($ship)) {
       return {
@@ -30,8 +32,8 @@ const headerInfoSelector = createSelector(
     const $shipType = $shipTypes[$ship.api_stype]
     return {
       mstId,
-      shipName: $ship.api_name,
-      typeName: $shipType.api_name,
+      shipName: simplify($ship.api_name),
+      typeName: simplify($shipType.api_name),
       yomi: $ship.api_yomi,
       ours: Boolean($ship.api_sortno),
     }

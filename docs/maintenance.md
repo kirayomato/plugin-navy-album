@@ -44,3 +44,15 @@ Don't run this when an event is only partially implemented for the obvious reaso
 
 See comment of `NavyAlbum.populateDebuffInfo` in `store/action-creator.es`.
 Use resulting content to replace `assets/default-debuff-info.json`
+
+## ship / equip name simplifier (fork only)
+
+Names are converted from Japanese (traditional characters + Shinjitai) to
+Simplified Chinese at display time. The conversion table lives in
+`game-misc/t2s.es` (`supplementaryDict`) and needs manual maintenance when a
+character shows up unconverted.
+
+See [name-simplifier.md](name-simplifier.md) (in Chinese) for the table format,
+the rule that dictionary keys must be the post-`jp→t` form, how to scan all
+names for leftovers, and the known blind spot of that scan.
+
