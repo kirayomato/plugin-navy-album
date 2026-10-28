@@ -12,6 +12,7 @@ import { PTyp } from '../../ptyp'
 
 import { ShipPicker } from './ship-picker'
 import { ShipViewer } from './ship-viewer'
+import { getI18n } from '../common/i18n'
 
 @connect(
   listOptionsSelector,
@@ -57,7 +58,7 @@ class ShipsAlbum extends Component {
       groupShipTypes,
       groupRemodels,
     } = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     const boolToIntent = v => v ? 'primary' : 'default'
     return (
       <div

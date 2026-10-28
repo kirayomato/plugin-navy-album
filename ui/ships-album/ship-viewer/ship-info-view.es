@@ -19,6 +19,7 @@ import { LevelSlider } from './level-slider'
 import { ExtraInfoView } from './extra-info-view'
 import { DockingTimeView } from './docking-time-view'
 import { RemodelInfoView } from './remodel-info-view'
+import { getI18n } from '../../common/i18n'
 
 const id = _.identity
 
@@ -136,7 +137,7 @@ class ShipInfoView extends PureComponent {
         return {cap: slotNum, mstId: null, star: null}
       }
     })
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     const introMessaage = normalizeIntro($ship.api_getmes)
     const shipStats = mkStats($ship, wctfShip, statsL, level)
     return (

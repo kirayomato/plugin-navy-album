@@ -7,6 +7,7 @@ import { modifyObject, not } from 'subtender'
 import { uiSelector } from '../../selectors'
 import { mapDispatchToProps } from '../../store'
 import { PTyp } from '../../ptyp'
+import { getI18n } from './i18n'
 
 /*
    Toggles whether names are shown with traditional characters
@@ -37,7 +38,7 @@ class NameSimplifierToggle extends PureComponent {
 
   render() {
     const {style, enabled} = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return (
       <span style={style} className="name-simplifier-toggle">
         <Tooltip

@@ -18,6 +18,7 @@ import {
 } from '../../../../selectors'
 import { PTyp } from '../../../../ptyp'
 import { mapDispatchToProps } from '../../../../store'
+import { getI18n } from '../../../common/i18n'
 
 @connect(
   mergeMapStateToProps(
@@ -62,7 +63,7 @@ class QuotesView extends Component {
       marginTop: 0,
       marginRight: '1em',
     }
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return (
       <ul className={Classes.LIST}>
         <div

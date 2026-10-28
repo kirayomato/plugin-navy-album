@@ -25,6 +25,7 @@ import { ErrorBoundary } from '../error-boundary'
 import { ShipGraphViewWithCG } from './ship-graph-view-with-cg'
 import { getEquipImgPath } from '../../game-misc'
 import { mapDispatchToProps } from '../../store'
+import { getI18n } from '../common/i18n'
 
 const renderShipGraphRow = (
   mstIds, rowKey, uiSwitchShip, prefix = 'gameupdate-default-prefix-',
@@ -112,7 +113,7 @@ class GameUpdateViewer extends PureComponent {
   }
 
   renderNewShipsPart = () => {
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     const {rSummary: {addedShipMstIds}, uiSwitchShip} = this.props
     const {special, friendly, abyssal} = addedShipMstIds
     const length = _.sum(_.values(addedShipMstIds).map(x => x.length))
@@ -161,7 +162,7 @@ class GameUpdateViewer extends PureComponent {
         </Button>
       )
     }
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return length > 0 && [
       <h3 key="eq-1">{__('GameUpdateTab.NewEquipments')}</h3>,
       friendly.length > 0 && (
@@ -203,7 +204,7 @@ class GameUpdateViewer extends PureComponent {
   }
 
   renderUpdatedCGsPart = () => {
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     const {rSummary: {changedShipMstIds}, uiSwitchShip} = this.props
     const {special, friendly, abyssal} = changedShipMstIds
     // friendly.push(973)
@@ -222,7 +223,7 @@ class GameUpdateViewer extends PureComponent {
 
   renderGeneralInfoPart = () => {
     const {digest} = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return [
       <h3 key="gi-1">{__('GameUpdateTab.GeneralInfo')}</h3>,
       <p key="gi-2">

@@ -17,6 +17,7 @@ import { remodelInfoSelector, nameSimplifierSelector } from '../../../selectors'
 import { isAbyssalShipMstId } from '../../../game-misc'
 import { PTyp } from '../../../ptyp'
 import { mapDispatchToProps } from '../../../store'
+import { getI18n } from '../../common/i18n'
 
 @connect(
   createStructuredSelector({
@@ -79,7 +80,7 @@ class AltFormSwitcher extends PureComponent {
 
   render() {
     const {mstId} = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     const noRender = (<div style={{display: 'none'}} />)
     if (isAbyssalShipMstId(mstId)) {
       const {hasDebuffedGraphs, debuffFlag, $ships, simplify} = this.props

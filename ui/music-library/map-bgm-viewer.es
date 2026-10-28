@@ -18,6 +18,7 @@ import { PTyp } from '../../ptyp'
 import { Highlightable } from '../common/highlightable'
 import { mapDispatchToProps } from '../../store'
 import { BgmListItem } from './bgm-list-item'
+import { getI18n } from '../common/i18n'
 
 @connect(
   createStructuredSelector({
@@ -53,7 +54,7 @@ class MapBgmViewer extends PureComponent {
     )
 
   mkBgmListItem = (bgmId, key, mapId = null) => {
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     const {useSiteInfo, onPlay} = this.props
     const useInfo = useSiteInfo[bgmId]
     const allMapIds = _.sortBy(_.keys(useInfo).map(Number), _.identity)
@@ -111,7 +112,7 @@ class MapBgmViewer extends PureComponent {
 
   render() {
     const {grouppedMapIds, listInfo, focus} = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return (
       <div
         style={{

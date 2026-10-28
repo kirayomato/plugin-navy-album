@@ -19,6 +19,7 @@ import {
 import { PTyp } from '../../../../ptyp'
 import { mapDispatchToProps } from '../../../../store'
 import { InfoRow } from './info-row'
+import { getI18n } from '../../../common/i18n'
 
 const prepareMstIdToDesc = ($ships, $shipTypes, simplify) => mstId => {
   const $ship = $ships[mstId]
@@ -77,7 +78,7 @@ class RemodelInfoView extends PureComponent {
     if (currentRemodelDetails.length === 0)
       return noRender
     const mstIdToDesc = prepareMstIdToDesc($ships, $shipTypes, simplify)
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return (
       <>
         <H3>

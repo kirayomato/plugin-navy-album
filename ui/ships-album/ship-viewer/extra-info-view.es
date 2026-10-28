@@ -4,6 +4,7 @@ import { HTMLTable } from '@blueprintjs/core'
 
 import { PTyp } from '../../../ptyp'
 import { MatIcon, StatIcon } from '../../common/icon'
+import { getI18n } from '../../common/i18n'
 
 class ExtraInfoView extends PureComponent {
   static propTypes = {
@@ -17,7 +18,7 @@ class ExtraInfoView extends PureComponent {
     const applyAfterMarriage =
       v => (v === 0) ? 0 : Math.max(1, Math.floor(v*0.85))
     const costMod = level >= 100 ? applyAfterMarriage : (x => x)
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
 
     return (
       <HTMLTable

@@ -16,6 +16,7 @@ import { ShipsAlbum } from './ships-album'
 import { EquipmentsAlbum } from './equipments-album'
 import { MusicLibrary } from './music-library'
 import { GameUpdateViewer } from './game-update-viewer'
+import { getI18n } from './common/i18n'
 
 const NaTabs = styled(Tabs)`
   flex: 1;
@@ -57,7 +58,7 @@ class NavyAlbum extends Component {
 
   render() {
     const {activeTab, theme} = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return (
       <NaTabs
         id="na-main"

@@ -4,6 +4,7 @@ import { HTMLTable } from '@blueprintjs/core'
 
 import { PTyp } from '../../../ptyp'
 import { MatIcon } from '../../common/icon'
+import { getI18n } from '../../common/i18n'
 
 class ExtraInfoView extends PureComponent {
   static propTypes = {
@@ -21,7 +22,7 @@ class ExtraInfoView extends PureComponent {
     const shouldShowAircraftStats =
       _.isInteger($equip.api_cost) ||
       _.isInteger($equip.api_distance)
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return (
       <HTMLTable
         className="extra-info-view"

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Button, InputGroup } from '@blueprintjs/core'
 import FontAwesome from 'react-fontawesome'
 import { PTyp } from '../ptyp'
+import { getI18n } from './common/i18n'
 
 class SearchBar extends Component {
   static propTypes = {
@@ -42,7 +43,7 @@ class SearchBar extends Component {
 
   render() {
     const {style} = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return (
       <div style={{
         display: 'flex',

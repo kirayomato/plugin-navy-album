@@ -14,6 +14,7 @@ import { ErrorBoundary } from '../error-boundary'
 import { activeTabSelector } from './selectors'
 import { PortBgmViewer } from './port-bgm-viewer'
 import { MapBgmViewer } from './map-bgm-viewer'
+import { getI18n } from '../common/i18n'
 
 /*
   pause all audio tags except one that we just started playing,
@@ -86,7 +87,7 @@ class MusicLibrary extends PureComponent {
 
   render() {
     const {activeTab} = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     return (
       <WindowEnv.Consumer>
         {({mountPoint}) => (

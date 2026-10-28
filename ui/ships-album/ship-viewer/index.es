@@ -24,6 +24,7 @@ import { ShipInfoView } from './ship-info-view'
 import { GalleryView } from './gallery-view'
 import { QuotesView } from './quotes-view'
 import { ErrorBoundary } from '../../error-boundary'
+import { getI18n } from '../../common/i18n'
 
 const SvTabs = styled(Tabs)`
   flex: 1;
@@ -78,7 +79,7 @@ class ShipViewer extends Component {
     const {
       activeTab, mstId, $ship, debuffFlag,
     } = this.props
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     const isAbyssalShip = isAbyssalShipMstId(mstId)
     return (
       <SvTabs

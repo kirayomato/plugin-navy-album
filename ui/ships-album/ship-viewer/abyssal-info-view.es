@@ -11,6 +11,7 @@ import {
   getShipImgSrcFuncSelector,
 } from '../../../selectors'
 import { StatsView } from './stats-view'
+import { getI18n } from '../../common/i18n'
 
 const abyssalInfo = readJsonSync(
   join(__dirname,'..', '..','..','assets','abyssal.json')
@@ -59,7 +60,7 @@ class AbyssalInfoView extends PureComponent {
       getShipImgSrc,
     } = this.props
     const $abyssal = abyssalInfo[mstId]
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
     const hasAbyssalEquipsInfo =
       $abyssal &&
       Array.isArray($abyssal.EQUIPS) &&

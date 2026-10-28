@@ -12,6 +12,7 @@ import { mapDispatchToProps } from '../../store'
 import { PTyp } from '../../ptyp'
 import { EquipPicker } from './equip-picker'
 import { EquipViewer } from './equip-viewer'
+import { getI18n } from '../common/i18n'
 
 @connect(
   listOptionsSelector,
@@ -55,7 +56,7 @@ class EquipmentsAlbum extends Component {
       groupEquipTypes,
     } = this.props
 
-    const {__} = window.i18n["poi-plugin-navy-album"]
+    const {__} = getI18n()
 
     const boolToIntent = v => v ? 'primary' : 'default'
     return (
