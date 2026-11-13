@@ -20,6 +20,9 @@
 // launched from anywhere, but t2s.es lives in <plugin root>/game-misc, so we
 // pin `cwd` to the plugin root (<docs>/..) to keep it in scope regardless of
 // where `node` is invoked from.
+// Run Method
+// node docs/get_translate.js
+
 const path = require('path')
 require('@babel/register')({
   cwd: path.resolve(__dirname, '..'),
