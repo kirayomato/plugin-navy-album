@@ -29,6 +29,7 @@ const supplementaryDict = [
   ['姫', '姬'],
   ['衞', '卫'],
   ['砲', '炮'],
+  ['铳', '枪']
 ]
 
 const identity = str => str
