@@ -11,9 +11,9 @@
  * Why the @babel/register bootstrap:
  *   - game-misc/t2s.es is written in ES-module syntax (export {}), which
  *     plain node cannot require without transpilation.
- *   - the repo's .babelrc references the removed @babel/preset-stage-0
- *     (Babel 7 deleted it), so we deliberately bypass it (babelrc:false,
- *     configFile:false) and use only @babel/preset-env.
+ *   - we deliberately bypass the repo's .babelrc (babelrc:false,
+ *     configFile:false) and pin an explicit @babel/preset-env, so this demo
+ *     runs on its own without depending on the repo's babel configuration.
  */
 
 // @babel/register only transpiles files inside its `cwd`. The script can be
